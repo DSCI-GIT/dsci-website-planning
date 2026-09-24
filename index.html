@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Website Redesign Planner</title>
+<meta name="description" content="Planning questionnaire for the new Drone Services Canada Inc. website.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600&family=Bebas+Neue&family=IBM+Plex+Sans:wght@400;600&family=Inter:wght@400;600&family=Montserrat:wght@400;700&family=Oswald:wght@500&family=Poppins:wght@400;600&family=Rajdhani:wght@600&family=Source+Serif+4:wght@400;600&family=Space+Grotesk:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #f6f7f8;
+  --surface: #ffffff;
+  --surface-2: #eef1f3;
+  --text: #1b252c;
+  --muted: #5d6a73;
+  --line: #d9dfe3;
+  --accent: #c8252a;
+  --accent-ink: #ffffff;
+  --accent-soft: #fbe9e9;
+  --focus: #1f6feb;
+  --ok: #1d7a46;
+  --radius: 10px;
+  --shadow: 0 1px 2px rgba(20,30,40,.06), 0 4px 16px rgba(20,30,40,.05);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #12171b; --surface: #1a2127; --surface-2: #222b32; --text: #e7ecef; --muted: #9aa8b1;
+    --line: #2e3942; --accent: #ef4b50; --accent-ink: #ffffff; --accent-soft: #3a1f22; --focus: #6aa7ff; --ok: #4cc27f;
+    --shadow: 0 1px 2px rgba(0,0,0,.3);
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #12171b; --surface: #1a2127; --surface-2: #222b32; --text: #e7ecef; --muted: #9aa8b1;
+  --line: #2e3942; --accent: #ef4b50; --accent-ink: #ffffff; --accent-soft: #3a1f22; --focus: #6aa7ff; --ok: #4cc27f;
+  --shadow: 0 1px 2px rgba(0,0,0,.3);
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 76px; }
+body { margin: 0; background: var(--bg); color: var(--text); font: 16px/1.55 Inter, system-ui, -apple-system, "Segoe UI", sans-serif; }
+a { color: var(--focus); }
+header.top {
+  position: sticky; top: 0; z-index: 20; background: var(--surface); border-bottom: 1px solid var(--line);
+  display: flex; align-items: center; gap: 16px; padding: 10px 20px;
+}
+header.top .brand { font-family: "Bebas Neue", Inter, sans-serif; font-size: 24px; letter-spacing: 1px; color: var(--text); white-space: nowrap; }
+header.top .brand span { color: var(--accent); }
+.progress { flex: 1; display: flex; align-items: center; gap: 10px; min-width: 0; }
+.bar { flex: 1; height: 8px; background: var(--surface-2); border-radius: 99px; overflow: hidden; }
+.bar > i { display: block; height: 100%; width: 0; background: var(--accent); transition: width .3s; }
+.progress small { color: var(--muted); white-space: nowrap; font-variant-numeric: tabular-nums; }
+.saved { color: var(--ok); font-size: 13px; opacity: 0; transition: opacity .3s; white-space: nowrap; }
+.saved.on { opacity: 1; }
+.layout { display: grid; grid-template-columns: 250px minmax(0, 1fr); gap: 28px; max-width: 1180px; margin: 0 auto; padding: 24px 20px 80px; }
+nav.toc { position: sticky; top: 76px; align-self: start; max-height: calc(100vh - 96px); overflow: auto; }
+nav.toc ol { list-style: none; margin: 0; padding: 0; counter-reset: s; }
+nav.toc li a {
+  display: flex; justify-content: space-between; gap: 8px; padding: 7px 10px; border-radius: 8px;
+  text-decoration: none; color: var(--text); font-size: 14px;
+}
+nav.toc li a:hover { background: var(--surface-2); }
+nav.toc li a.active { background: var(--accent-soft); color: var(--accent); font-weight: 600; }
+nav.toc li a em { font-style: normal; color: var(--muted); font-size: 12px; font-variant-numeric: tabular-nums; }
+nav.toc li a.done em { color: var(--ok); }
+main section {
+  background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow);
+  padding: 26px 28px; margin-bottom: 22px;
+}
+main section > h2 { font-family: "Bebas Neue", Inter, sans-serif; font-weight: 400; font-size: 34px; letter-spacing: .8px; margin: 0 0 4px; line-height: 1.1; }
+main section > h2 small { color: var(--accent); margin-right: 8px; }
+main section > p.intro { color: var(--muted); margin: 0 0 18px; }
+.q { padding: 18px 0; border-top: 1px solid var(--line); }
+.q:first-of-type { border-top: 0; }
+.q > label.ql, .q > .ql { display: block; font-weight: 600; margin-bottom: 4px; }
+.q .help { color: var(--muted); font-size: 14px; margin: 0 0 10px; }
+.q .current { display: inline-block; font-size: 13px; background: var(--surface-2); color: var(--muted); padding: 2px 8px; border-radius: 6px; margin: 0 0 10px; }
+.tag { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .6px; padding: 2px 6px; border-radius: 4px; margin-left: 6px; vertical-align: 2px; }
+.tag.tech { background: #e3edff; color: #2456b3; }
+.tag.design { background: var(--accent-soft); color: var(--accent); }
+.tag.info { background: #e5f4ea; color: #1d7a46; }
+:root[data-theme="dark"] .tag.tech { background: #1d2c47; color: #8fb7ff; }
+:root[data-theme="dark"] .tag.info { background: #183526; color: #6fd79a; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .tag.tech { background: #1d2c47; color: #8fb7ff; } :root:not([data-theme="light"]) .tag.info { background: #183526; color: #6fd79a; } }
+input[type=text], input[type=url], input[type=email], input[type=tel], input[type=date], textarea, select {
+  width: 100%; font: inherit; color: var(--text); background: var(--surface); border: 1px solid var(--line);
+  border-radius: 8px; padding: 9px 11px;
+}
+textarea { min-height: 84px; resize: vertical; }
+input:focus-visible, textarea:focus-visible, select:focus-visible, button:focus-visible, .opt input:focus-visible + span { outline: 2px solid var(--focus); outline-offset: 2px; }
+.opts { display: grid; gap: 8px; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); }
+.opts.wide { grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); }
+.opt { position: relative; display: block; cursor: pointer; }
+.opt input { position: absolute; opacity: 0; pointer-events: none; }
+.opt > span {
+  display: block; height: 100%; border: 1px solid var(--line); border-radius: 9px; padding: 10px 12px 10px 36px;
+  background: var(--surface); transition: border-color .15s, background .15s; position: relative;
+}
+.opt > span::before {
+  content: ""; position: absolute; left: 12px; top: 13px; width: 14px; height: 14px; border: 2px solid var(--muted); border-radius: 50%;
+}
+.opt input[type=checkbox] + span::before { border-radius: 4px; }
+.opt input:checked + span { border-color: var(--accent); background: var(--accent-soft); }
+.opt input:checked + span::before { border-color: var(--accent); background: var(--accent); box-shadow: inset 0 0 0 2px var(--surface); }
+.opt b { display: block; font-weight: 600; }
+.opt small { display: block; color: var(--muted); font-size: 13px; line-height: 1.4; margin-top: 2px; }
+.opt .fontprev { display: block; font-size: 24px; line-height: 1.2; margin: 4px 0 2px; color: var(--text); overflow-wrap: anywhere; }
+.opt .fontprev.body { font-size: 15px; line-height: 1.4; }
+.swatches { display: flex; gap: 0; margin: 6px 0 2px; border-radius: 6px; overflow: hidden; border: 1px solid var(--line); height: 26px; }
+.swatches i { flex: 1; }
+.other { margin-top: 8px; }
+.keep-list { display: grid; gap: 8px; }
+.keep-row { display: grid; grid-template-columns: minmax(160px, 1.1fr) auto minmax(160px, 1.4fr); gap: 10px; align-items: center; padding: 8px 10px; border: 1px solid var(--line); border-radius: 9px; background: var(--surface); }
+.keep-row .name b { display: block; font-weight: 600; }
+.keep-row .name small { color: var(--muted); font-size: 13px; }
+.seg { display: inline-flex; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+.seg label { position: relative; cursor: pointer; }
+.seg input { position: absolute; opacity: 0; pointer-events: none; }
+.seg span { display: block; padding: 6px 10px; font-size: 13px; border-left: 1px solid var(--line); white-space: nowrap; }
+.seg label:first-child span { border-left: 0; }
+.seg input:checked + span { background: var(--accent); color: var(--accent-ink); }
+.seg input:focus-visible + span { outline: 2px solid var(--focus); outline-offset: -2px; }
+.keep-row input[type=text] { padding: 6px 9px; font-size: 14px; }
+.links { display: grid; gap: 8px; }
+.link-row { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr) auto; gap: 8px; }
+button {
+  font: inherit; cursor: pointer; border-radius: 8px; border: 1px solid var(--line); background: var(--surface); color: var(--text); padding: 8px 14px;
+}
+button:hover { background: var(--surface-2); }
+button.primary { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); font-weight: 600; }
+button.primary:hover { filter: brightness(1.07); background: var(--accent); }
+button.icon { padding: 6px 10px; }
+.color-q { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }
+.color-q input[type=color] { width: 54px; height: 38px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface); padding: 2px; cursor: pointer; }
+.chip { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; color: var(--muted); }
+.chip i { width: 18px; height: 18px; border-radius: 4px; border: 1px solid var(--line); display: inline-block; }
+.hero-note { background: var(--surface-2); border-radius: 9px; padding: 14px 16px; margin: 0 0 16px; font-size: 15px; }
+.hero-note ol { margin: 6px 0 0; padding-left: 20px; }
+.row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 12px; }
+.toast { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%) translateY(20px); background: var(--text); color: var(--bg); padding: 10px 16px; border-radius: 8px; opacity: 0; transition: .25s; pointer-events: none; z-index: 50; }
+.toast.on { opacity: 1; transform: translateX(-50%) translateY(0); }
+.theme-btn { white-space: nowrap; }
+footer.note { color: var(--muted); font-size: 13px; text-align: center; padding: 10px 20px 40px; }
+@media (max-width: 900px) {
+  .layout { grid-template-columns: 1fr; padding: 16px 16px 60px; }
+  nav.toc { display: none; }
+  main section { padding: 20px 16px; }
+  .keep-row { grid-template-columns: 1fr; }
+  .link-row { grid-template-columns: 1fr; }
+  .row2 { grid-template-columns: 1fr; }
+  header.top { padding: 10px 16px; gap: 10px; }
+  header.top .brand { font-size: 20px; }
+  .progress small { display: none; }
+  .saved { display: none; }
+}
+@media print {
+  header.top, nav.toc, .actions, button { display: none !important; }
+  .layout { display: block; }
+  main section { break-inside: avoid; box-shadow: none; }
+}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="brand">DSCI <span>Website</span> Planner</div>
+  <div class="progress" aria-label="Progress">
+    <div class="bar"><i id="barFill"></i></div>
+    <small id="progTxt">0 answered</small>
+  </div>
+  <span class="saved" id="savedBadge">✓ Saved</span>
+  <button class="icon theme-btn" id="themeBtn" type="button" aria-label="Toggle dark mode">◐</button>
+</header>
+
+<div class="layout">
+  <nav class="toc" aria-label="Sections"><ol id="toc"></ol></nav>
+  <main id="main"></main>
+</div>
+<footer class="note">Answers are saved in this browser only, until you download or send them. Nothing is uploaded anywhere.</footer>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+/* ---------- Questionnaire definition ---------- */
+const KEEP = ['Keep', 'Improve', 'Remove', 'Not sure'];
+const NS = { v: 'unsure', label: 'Not sure – recommend something', desc: 'Let the designer suggest the best option.' };
+
+const SECTIONS = [
+  {
+    id: 'start', title: 'Start here', intro: '',
+    custom: 'welcome',
+    questions: [
+      { id: 'who', type: 'text', tag: 'info', label: 'Your name', help: 'So we know whose answers these are. Each person should fill in their own copy.' },
+      { id: 'role', type: 'text', tag: 'info', label: 'Your role in the business', help: 'e.g. Owner, Operations, Sales, Chief Pilot' },
+    ]
+  },
+  {
+    id: 'goals', title: 'Business & goals', intro: 'The big picture. What should the new website actually do for the business?',
+    questions: [
+      { id: 'pitch', type: 'textarea', tag: 'info', label: 'In one or two sentences, what does Drone Services Canada do and for whom?', help: 'This often becomes the homepage headline, so write it the way you would say it to a new client.' },
+      { id: 'goal_main', type: 'check', tag: 'design', max: 3, label: 'What are the main jobs of the website? (pick up to 3)', options: [
+        { v: 'leads', label: 'Get quote requests / leads' },
+        { v: 'credibility', label: 'Look credible to big clients & tenders', desc: 'Engineering firms, municipalities, utilities' },
+        { v: 'showcase', label: 'Showcase projects & data quality' },
+        { v: 'seo', label: 'Rank on Google for local searches' },
+        { v: 'educate', label: 'Educate clients about drone/LiDAR options' },
+        { v: 'delivery', label: 'Deliver data/results to clients' },
+        { v: 'recruit', label: 'Recruit pilots / staff / partners' },
+        { v: 'sell', label: 'Sell products, training or packages online' },
+      ], other: true },
+      { id: 'clients', type: 'check', tag: 'info', label: 'Who are your most valuable clients? (pick all that apply)', options: [
+        { v: 'engineering', label: 'Engineering & surveying firms' },
+        { v: 'construction', label: 'Construction & developers' },
+        { v: 'municipal', label: 'Municipalities & government' },
+        { v: 'utilities', label: 'Utilities, energy & telecom' },
+        { v: 'mining', label: 'Mining & aggregates' },
+        { v: 'agriculture', label: 'Agriculture' },
+        { v: 'realestate', label: 'Real estate & property managers' },
+        { v: 'insurance', label: 'Insurance & inspections' },
+        { v: 'media', label: 'Media, film & marketing agencies' },
+        { v: 'events', label: 'Events & sports' },
+      ], other: true },
+      { id: 'area', type: 'radio', tag: 'info', label: 'What area do you want to be known for serving?', current: 'Currently: Hamilton, Ontario-based, “Areas We Serve” section on homepage', options: [
+        { v: 'local', label: 'Hamilton & Golden Horseshoe' },
+        { v: 'ontario', label: 'All of Ontario' },
+        { v: 'canada', label: 'Across Canada' },
+        { v: 'na', label: 'Canada + USA' },
+      ], other: true },
+      { id: 'cta', type: 'radio', tag: 'design', label: 'What is the #1 action you want a visitor to take?', options: [
+        { v: 'quote', label: 'Request a quote' },
+        { v: 'call', label: 'Call us' },
+        { v: 'book', label: 'Book a consultation call' },
+        { v: 'email', label: 'Send an email / message' },
+        { v: 'portfolio', label: 'View our work' },
+      ], other: true },
+      { id: 'working', type: 'textarea', tag: 'info', label: 'What works well on the current website?', help: 'Things clients have complimented, pages that bring in leads, anything you like.' },
+      { id: 'notworking', type: 'textarea', tag: 'info', label: 'What frustrates you about the current website?' },
+      { id: 'competitors', type: 'links', tag: 'info', label: 'Competitors (websites)', help: 'Who do you lose jobs to, or who do clients compare you with? Note what they do better or worse.' },
+    ]
+  },
+  {
+    id: 'info', title: 'Update your information', intro: 'Here is what the current site says. Mark what is still correct and type in anything that has changed.',
+    questions: [
+      { id: 'company', type: 'text', tag: 'info', label: 'Company name as it should appear', current: 'Currently: Drone Services Canada Inc.' },
+      { id: 'tagline', type: 'text', tag: 'info', label: 'Tagline', current: 'Currently: “Drone Solutions For Every Industry” / slider: “Drone Solutions For Every Challenge”' },
+      { id: 'slogan', type: 'text', tag: 'info', label: 'Footer slogan', current: 'Currently: “Bringing Prosperity Back To Your Bottom Line!”', help: 'Keep it, change it, or leave blank to drop it.' },
+      { id: 'contact_keep', type: 'keep', tag: 'info', label: 'Contact details', items: [
+        { n: 'Address', d: '2-558 Upper Gage Avenue, Hamilton, ON L8V 4J6' },
+        { n: 'Phone', d: '+1 (905) 481 0112' },
+        { n: 'Email', d: 'info@droneservicescanadainc.com' },
+        { n: 'Contact form', d: 'Currently an embedded Google Form' },
+      ], choices: ['Correct', 'Change', 'Remove'] },
+      { id: 'hours', type: 'text', tag: 'info', label: 'Business hours / emergency availability to show', help: 'e.g. Mon–Fri 8–5, 24/7 emergency inspections' },
+      { id: 'social_keep', type: 'keep', tag: 'info', label: 'Social media links', items: [
+        { n: 'X / Twitter', d: 'twitter.com/DroneServicesCa' },
+        { n: 'LinkedIn (company)', d: 'linkedin.com/company/drone-services-canada-inc' },
+        { n: 'LinkedIn (Michael Brown)', d: 'linkedin.com/in/michael-brown-dsci' },
+        { n: 'YouTube', d: 'youtube.com/channel/UCgekFbmsxDNle4nC2uoPtkg' },
+      ], choices: ['Keep', 'Change', 'Remove'] },
+      { id: 'social_new', type: 'textarea', tag: 'info', label: 'Other social profiles to add', help: 'Instagram, Facebook, TikTok, Google Business Profile, etc. Paste the links.' },
+      { id: 'team_keep', type: 'keep', tag: 'info', label: 'Team members shown on the site', items: [
+        { n: 'Michael Brown', d: 'On About & homepage' },
+        { n: 'Eric Papky', d: 'On About & homepage' },
+        { n: 'Jessica Mills', d: 'On About page' },
+      ], choices: ['Keep', 'Update bio/photo', 'Remove'] },
+      { id: 'team_new', type: 'textarea', tag: 'info', label: 'New team members, titles or bio updates' },
+      { id: 'services_keep', type: 'keep', tag: 'info', label: 'Services', help: 'Which services should the new site feature?', items: [
+        { n: 'Drone Inspections' }, { n: 'Surveying & Mapping' }, { n: '3D LiDAR / LiDAR Scanning' },
+        { n: '3D Digital Twin' }, { n: 'Aerial Photography / Videography' }, { n: 'Construction' },
+        { n: 'Real Estate Development' }, { n: 'Drone Consulting Services' },
+      ], choices: KEEP },
+      { id: 'services_new', type: 'textarea', tag: 'info', label: 'New services to add', help: 'e.g. thermal/solar inspections, volumetrics & stockpiles, SLAM/indoor scanning, BVLOS, training, data processing only…' },
+      { id: 'services_top', type: 'text', tag: 'info', label: 'Your 3 most profitable / most wanted services' },
+      { id: 'equip_keep', type: 'keep', tag: 'info', label: 'Equipment', items: [
+        { n: 'DJI Matrice 400' }, { n: 'Skydio X10 with NightSense' }, { n: 'Rock Robotic R3 Pro V2 LiDAR with SLAM' },
+        { n: 'Zenmuse P1 (photogrammetry)' }, { n: 'Zenmuse H20T (inspections)' },
+      ], choices: ['Keep', 'Retired', 'Not sure'] },
+      { id: 'equip_new', type: 'textarea', tag: 'info', label: 'New equipment or software to list', help: 'Drones, sensors, GNSS/RTK, processing software (e.g. Pix4D, TerraSolid, Cyclone), etc.' },
+      { id: 'certs', type: 'textarea', tag: 'info', label: 'Certifications, insurance & compliance to show', help: 'Transport Canada Advanced/Level 1 Complex, SFOCs, insurance amount, COR/safety programs, WSIB, memberships, security clearances…' },
+      { id: 'clients_logos', type: 'textarea', tag: 'info', label: 'Clients or projects we can name publicly', help: 'Logos and names build trust. Only list ones you have permission to show.' },
+      { id: 'testimonials', type: 'textarea', tag: 'info', label: 'Testimonials / reviews to include', help: 'Paste quotes, or links to Google reviews.' },
+      { id: 'blog_cats', type: 'keep', tag: 'info', label: 'News / blog categories (current)', items: [
+        { n: 'Aerial Photography & Videography', d: '4 posts' }, { n: 'Announcements', d: '4 posts' }, { n: 'UAV Drone Inspections', d: '3 posts' },
+        { n: 'Drone Services Canada News', d: '3 posts' }, { n: 'Surveying & Mapping', d: '2 posts' }, { n: 'Outdoor Sports', d: '2 posts' },
+        { n: 'Promotional Videography', d: '2 posts' }, { n: 'City Views', d: '1 post' }, { n: 'Construction', d: '1 post' },
+        { n: 'Events and Festivals', d: '1 post' }, { n: 'Media & Advertising', d: '1 post' }, { n: 'Precision Agriculture', d: '1 post' },
+        { n: 'Training & Certification', d: '1 post' },
+      ], choices: ['Keep', 'Merge', 'Remove'] },
+      { id: 'info_other', type: 'textarea', tag: 'info', label: 'Anything else on the current site that is out of date?', help: 'e.g. copyright still says © 2018.' },
+    ]
+  },
+  {
+    id: 'inspo', title: 'Inspiration', intro: 'Paste links to websites you like the look or feel of. They do not have to be drone companies. Say what you like about each one.',
+    questions: [
+      { id: 'like_links', type: 'links', tag: 'design', label: 'Websites you like', help: 'Tip: note the specific thing (“the big video header”, “how their case studies look”, “simple menu”).' },
+      { id: 'dislike_links', type: 'links', tag: 'design', label: 'Websites you do NOT like (optional)', help: 'Just as useful: what to avoid.' },
+      { id: 'other_inspo', type: 'links', tag: 'design', label: 'Other references', help: 'Dribbble/Behance shots, YouTube videos, brochures, brand guides, Pinterest boards, your own photos/drives.' },
+      { id: 'three_words', type: 'text', tag: 'design', label: 'Three words people should feel when they land on the site', help: 'e.g. precise, trustworthy, cutting-edge' },
+    ]
+  },
+  {
+    id: 'brand', title: 'Look & feel', intro: 'The current site uses red (#d4262b), dark slate (#222d35) and white, with Bebas Neue headings and Poppins text.',
+    questions: [
+      { id: 'style', type: 'check', tag: 'design', max: 2, label: 'Overall style (pick up to 2)', options: [
+        { v: 'technical', label: 'Technical / engineering', desc: 'Data, grids, precise lines, spec sheets' },
+        { v: 'corporate', label: 'Clean corporate', desc: 'Calm, trustworthy, lots of white space' },
+        { v: 'bold', label: 'Bold & dramatic', desc: 'Big aerial imagery, strong contrast, large type' },
+        { v: 'minimal', label: 'Minimal', desc: 'Very few elements, content first' },
+        { v: 'dark', label: 'Dark high-tech', desc: 'Dark backgrounds, glowing accents, 3D scans' },
+        { v: 'friendly', label: 'Friendly & approachable', desc: 'Rounded shapes, warm tone, people-focused' },
+        NS,
+      ] },
+      { id: 'mode', type: 'radio', tag: 'design', label: 'Light or dark site?', options: [
+        { v: 'light', label: 'Light (white backgrounds)' },
+        { v: 'dark', label: 'Dark (black/charcoal backgrounds)' },
+        { v: 'mixed', label: 'Mixed', desc: 'Light pages with dark feature sections (like now)' },
+        { v: 'auto', label: 'Follow the visitor’s device setting' },
+        NS,
+      ] },
+      { id: 'palette', type: 'radio', tag: 'design', label: 'Colour direction', options: [
+        { v: 'current', label: 'Current colours', sw: ['#d4262b', '#222d35', '#ffffff', '#7e8285'] },
+        { v: 'aviation', label: 'Aviation navy + safety orange', sw: ['#0f2a44', '#ff6a13', '#ffffff', '#e8edf2'] },
+        { v: 'survey', label: 'Survey green + charcoal', sw: ['#1f6f4a', '#1e2427', '#f4f6f2', '#c7d66d'] },
+        { v: 'sky', label: 'Sky blue + white', sw: ['#1b75bc', '#0b2239', '#ffffff', '#dff0fb'] },
+        { v: 'mono', label: 'Monochrome + red accent', sw: ['#111111', '#d4262b', '#ffffff', '#9a9a9a'] },
+        { v: 'techdark', label: 'Dark tech + cyan (LiDAR look)', sw: ['#0b0f14', '#00c2d1', '#e6f7f9', '#ff4d6d'] },
+        NS,
+      ], other: true },
+      { id: 'colors', type: 'colors', tag: 'design', label: 'Or pick exact colours (optional)', help: 'Only if you already have brand colours in mind.', items: [
+        { n: 'Main brand colour', d: '#d4262b' }, { n: 'Dark colour', d: '#222d35' }, { n: 'Accent colour', d: '#00c2d1' },
+      ] },
+      { id: 'logo', type: 'radio', tag: 'design', label: 'Logo', current: 'Current logo: “DSCI” mark (updated 2023)', options: [
+        { v: 'keep', label: 'Keep the current logo as-is' },
+        { v: 'refresh', label: 'Refresh it', desc: 'Clean up / modernise, same idea' },
+        { v: 'new', label: 'Design a new logo' },
+        NS,
+      ] },
+      { id: 'logo_files', type: 'text', tag: 'tech', label: 'Where are the original logo files?', help: 'Link to a folder, or say who has them (vector .ai/.svg/.eps is best).' },
+      { id: 'font_head', type: 'radio', tag: 'design', wide: true, label: 'Heading font', options: [
+        { v: 'bebas', label: 'Bebas Neue (current)', font: 'Bebas Neue', desc: 'Tall, condensed, all caps' },
+        { v: 'oswald', label: 'Oswald', font: 'Oswald', desc: 'Condensed but friendlier' },
+        { v: 'barlow', label: 'Barlow Condensed', font: 'Barlow Condensed', desc: 'Engineering / signage feel' },
+        { v: 'rajdhani', label: 'Rajdhani', font: 'Rajdhani', desc: 'Technical, squared' },
+        { v: 'space', label: 'Space Grotesk', font: 'Space Grotesk', desc: 'Modern tech' },
+        { v: 'montserrat', label: 'Montserrat', font: 'Montserrat', desc: 'Geometric, corporate' },
+        { v: 'serif', label: 'Source Serif', font: 'Source Serif 4', desc: 'Classic, editorial' },
+        NS,
+      ], preview: 'Aerial LiDAR & Mapping' },
+      { id: 'font_body', type: 'radio', tag: 'design', wide: true, label: 'Body text font', options: [
+        { v: 'poppins', label: 'Poppins (current)', font: 'Poppins' },
+        { v: 'inter', label: 'Inter', font: 'Inter' },
+        { v: 'plex', label: 'IBM Plex Sans', font: 'IBM Plex Sans' },
+        { v: 'montserrat', label: 'Montserrat', font: 'Montserrat' },
+        NS,
+      ], preview: 'We capture survey-grade data safely, quickly and on budget.', body: true },
+      { id: 'imagery', type: 'check', tag: 'design', label: 'Imagery to feature', options: [
+        { v: 'own_photos', label: 'Our own aerial photos' },
+        { v: 'own_video', label: 'Our own drone video footage' },
+        { v: 'pointclouds', label: 'LiDAR point clouds / 3D models' },
+        { v: 'team', label: 'Team & pilots in the field' },
+        { v: 'equipment', label: 'Close-ups of equipment' },
+        { v: 'stock', label: 'Stock photography where needed' },
+        { v: 'illustration', label: 'Illustrations / diagrams' },
+      ], other: true },
+      { id: 'motion', type: 'radio', tag: 'design', label: 'How much animation?', options: [
+        { v: 'none', label: 'None', desc: 'Fastest, simplest' },
+        { v: 'subtle', label: 'Subtle', desc: 'Gentle fades and hover effects' },
+        { v: 'rich', label: 'Rich', desc: 'Scroll effects, animated counters, parallax' },
+        NS,
+      ] },
+    ]
+  },
+  {
+    id: 'home', title: 'Homepage', intro: 'The first thing clients see. Tell us what to keep from today’s homepage and what to add.',
+    questions: [
+      { id: 'hero', type: 'radio', tag: 'design', wide: true, label: 'Top of the homepage (the “hero”)', current: 'Currently: animated Slider Revolution slider with drone image', options: [
+        { v: 'video', label: 'Full-width background video', desc: 'Short silent loop of your best footage' },
+        { v: 'image', label: 'One strong photo + headline', desc: 'Fastest to load, very clear' },
+        { v: 'slider', label: 'Rotating slides', desc: 'Several messages (like now)' },
+        { v: 'pointcloud', label: 'Interactive 3D point cloud', desc: 'Visitors can spin a real LiDAR scan' },
+        { v: 'split', label: 'Split: text left, image/video right' },
+        NS,
+      ] },
+      { id: 'hero_text', type: 'textarea', tag: 'info', label: 'Hero headline & sub-headline ideas' },
+      { id: 'home_keep', type: 'keep', tag: 'design', label: 'Current homepage sections', items: [
+        { n: 'Top service boxes', d: 'Inspections / Surveying & Mapping / Aerial Photography' },
+        { n: 'Why Choose Us?', d: 'Text block about certified pilots' },
+        { n: 'We’re about Quality and Trust', d: 'Quality / Professional / Trusted' },
+        { n: 'Featured Services', d: 'Consulting / LiDAR / Surveying / Inspections' },
+        { n: 'Areas We Serve', d: 'Map section' },
+        { n: 'Our Team' }, { n: 'Testimonials' }, { n: 'Recent Posts', d: 'Latest news' },
+        { n: 'YouTube video' }, { n: '“Bringing Prosperity” banner' }, { n: 'Newsletter sign-up', d: 'Mailchimp' },
+      ], choices: KEEP },
+      { id: 'home_new', type: 'check', tag: 'design', label: 'New sections to consider', options: [
+        { v: 'logos', label: 'Client / partner logo strip' },
+        { v: 'stats', label: 'Numbers', desc: 'Acres mapped, flights, years, projects' },
+        { v: 'cases', label: 'Featured case studies' },
+        { v: 'industries', label: 'Industries we serve grid' },
+        { v: 'process', label: '“How it works” in 3–4 steps' },
+        { v: 'beforeafter', label: 'Before/after or data comparison slider' },
+        { v: 'viewer', label: '3D / point cloud viewer' },
+        { v: 'map', label: 'Project map', desc: 'Pins where you have flown' },
+        { v: 'faq', label: 'FAQ' },
+        { v: 'certs', label: 'Certifications & safety badges' },
+        { v: 'reel', label: 'Video showreel' },
+        { v: 'quote', label: 'Quick quote form on the homepage' },
+      ], other: true },
+    ]
+  },
+  {
+    id: 'pages', title: 'Pages & navigation', intro: 'Current menu: Home · About Us · Drones & Equipment · Solutions · News · Contact',
+    questions: [
+      { id: 'pages', type: 'check', tag: 'design', label: 'Pages the new site should have', options: [
+        { v: 'home', label: 'Home' }, { v: 'about', label: 'About' }, { v: 'team', label: 'Team (own page)' },
+        { v: 'services', label: 'Services overview' }, { v: 'service_pages', label: 'A page per service', desc: 'Better for Google' },
+        { v: 'industries', label: 'Industries (page per industry)' }, { v: 'cases', label: 'Case studies / portfolio' },
+        { v: 'equipment', label: 'Equipment' }, { v: 'news', label: 'News / blog' }, { v: 'faq', label: 'FAQ' },
+        { v: 'quote', label: 'Request a quote' }, { v: 'contact', label: 'Contact' }, { v: 'careers', label: 'Careers' },
+        { v: 'safety', label: 'Safety & compliance' }, { v: 'resources', label: 'Resources / downloads', desc: 'Spec sheets, sample data' },
+        { v: 'portal', label: 'Client portal / data delivery' }, { v: 'privacy', label: 'Privacy policy' }, { v: 'terms', label: 'Terms' },
+      ], other: true },
+      { id: 'nav_style', type: 'radio', tag: 'design', label: 'Main menu style', options: [
+        { v: 'simple', label: 'Simple top menu (5–7 links)' },
+        { v: 'mega', label: 'Big drop-down (“mega menu”)', desc: 'Services & industries with icons' },
+        { v: 'sticky', label: 'Menu stays visible while scrolling' },
+        { v: 'cta', label: 'Always-visible “Get a Quote” button' },
+        NS,
+      ] },
+      { id: 'footer', type: 'check', tag: 'design', label: 'Footer should include', options: [
+        { v: 'contact', label: 'Contact details' }, { v: 'links', label: 'Quick links' }, { v: 'services', label: 'Services list' },
+        { v: 'newsletter', label: 'Newsletter sign-up' }, { v: 'social', label: 'Social icons' }, { v: 'certs', label: 'Certification badges' },
+        { v: 'map', label: 'Small map' }, { v: 'area', label: 'Service-area list (for SEO)' },
+      ], other: true },
+    ]
+  },
+  {
+    id: 'features', title: 'Features', intro: 'What should the site be able to do?',
+    questions: [
+      { id: 'quote_form', type: 'check', tag: 'tech', label: 'Quote / contact form: what should it ask?', current: 'Currently: embedded Google Form', options: [
+        { v: 'service', label: 'Service needed' }, { v: 'location', label: 'Project location' }, { v: 'size', label: 'Site size (acres/hectares)' },
+        { v: 'deadline', label: 'Deadline' }, { v: 'deliverables', label: 'Deliverables wanted', desc: 'Orthomosaic, point cloud, DEM, CAD, video…' },
+        { v: 'budget', label: 'Budget range' }, { v: 'upload', label: 'File upload', desc: 'KML, site plans, photos' }, { v: 'mapdraw', label: 'Draw the area on a map' },
+      ], other: true },
+      { id: 'form_to', type: 'text', tag: 'tech', label: 'Who should receive form submissions? (emails)' },
+      { id: 'features', type: 'check', tag: 'tech', label: 'Extra features', options: [
+        { v: 'booking', label: 'Online booking (calendar)' }, { v: 'chat', label: 'Live chat / AI chat assistant' },
+        { v: 'viewer3d', label: '3D model / point cloud viewer', desc: 'Potree, Sketchfab or Cesium' },
+        { v: 'delivery', label: 'Secure client downloads', desc: 'Password-protected project deliverables' },
+        { v: 'reviews', label: 'Google reviews feed' }, { v: 'search', label: 'Site search' },
+        { v: 'french', label: 'French version (bilingual)' }, { v: 'pricing', label: 'Pricing / packages' },
+        { v: 'payments', label: 'Online payments / invoices' }, { v: 'jobs', label: 'Job applications' },
+        { v: 'calculator', label: 'Cost / coverage calculator' }, { v: 'newsletter', label: 'Newsletter (keep Mailchimp)' },
+      ], other: true },
+      { id: 'pointcloud_hosting', type: 'radio', tag: 'tech', label: 'If we show 3D scans, where should the data live?', options: [
+        { v: 'site', label: 'On our website hosting', desc: 'Simple, but uses hosting space' },
+        { v: 'cloud', label: 'Separate cloud storage', desc: 'e.g. S3/Cloudflare R2 – faster for big files' },
+        { v: 'service', label: 'A 3D hosting service', desc: 'Sketchfab, Cesium ion, Pointerra…' },
+        { v: 'none', label: 'We don’t need 3D on the site' },
+        NS,
+      ] },
+    ]
+  },
+  {
+    id: 'content', title: 'Content', intro: 'Words, photos and videos: who provides what.',
+    questions: [
+      { id: 'copy', type: 'radio', tag: 'info', label: 'Who writes the text for the new site?', options: [
+        { v: 'us', label: 'We will write it' },
+        { v: 'reuse', label: 'Reuse & tidy current text' },
+        { v: 'claude', label: 'Claude drafts, we review' },
+        { v: 'writer', label: 'Hire a copywriter' },
+      ], other: true },
+      { id: 'media_where', type: 'textarea', tag: 'tech', label: 'Where are your best photos and videos?', help: 'Google Drive / Dropbox / OneDrive / hard drive links. Mention anything you are especially proud of.' },
+      { id: 'cases_list', type: 'textarea', tag: 'info', label: 'Projects that would make great case studies', help: 'Client (if allowed), location, what you did, the result. One per line is fine.' },
+      { id: 'posts_keep', type: 'radio', tag: 'info', label: 'Existing ~130 news posts & case studies', options: [
+        { v: 'all', label: 'Keep all of them' },
+        { v: 'best', label: 'Keep the best, remove old/weak ones' },
+        { v: 'review', label: 'Review them together later' },
+      ] },
+      { id: 'remove', type: 'textarea', tag: 'info', label: 'Anything on the current site that must NOT be carried over?' },
+    ]
+  },
+  {
+    id: 'tech', title: 'Technical', intro: 'The behind-the-scenes decisions. Pick “Not sure” freely – we’ll recommend.',
+    questions: [
+      { id: 'editors', type: 'text', tag: 'tech', label: 'Who will update the website after launch?' },
+      { id: 'edit_freq', type: 'radio', tag: 'tech', label: 'How often will content be added?', options: [
+        { v: 'weekly', label: 'Weekly' }, { v: 'monthly', label: 'Monthly' }, { v: 'rarely', label: 'A few times a year' }, NS,
+      ] },
+      { id: 'edit_comfort', type: 'radio', tag: 'tech', label: 'Comfort with editing WordPress', options: [
+        { v: 'low', label: 'Low – keep it very simple' }, { v: 'med', label: 'Comfortable with basic edits' }, { v: 'high', label: 'Comfortable with layouts & settings' },
+      ] },
+      { id: 'hosting', type: 'radio', tag: 'tech', label: 'Hosting', current: 'Currently: SiteGround StartUp plan (no staging, 10 GB, 10,000 visits/month)', options: [
+        { v: 'keep', label: 'Stay on SiteGround StartUp' },
+        { v: 'growbig', label: 'Upgrade to SiteGround GrowBig', desc: '+$12/mo: staging, more space, more visits' },
+        { v: 'move', label: 'Open to moving host if better value' },
+        NS,
+      ] },
+      { id: 'domain_email', type: 'textarea', tag: 'tech', label: 'Who manages the domain name and email accounts?', help: 'e.g. registered at SiteGround/GoDaddy; email through Google Workspace / Microsoft 365 / SiteGround.' },
+      { id: 'seo_keywords', type: 'textarea', tag: 'tech', label: 'Search terms you want to rank for', help: 'e.g. “drone LiDAR survey Ontario”, “drone roof inspection Hamilton”' },
+      { id: 'seo_local', type: 'check', tag: 'tech', label: 'Local SEO', options: [
+        { v: 'gbp', label: 'We have a Google Business Profile' },
+        { v: 'gbp_help', label: 'Need help setting one up / improving it' },
+        { v: 'cities', label: 'Pages for specific cities/regions' },
+        { v: 'keepurls', label: 'Keep existing page addresses (protect rankings)' },
+      ] },
+      { id: 'analytics', type: 'check', tag: 'tech', label: 'Tracking & integrations to keep or add', current: 'Currently: Google Site Kit, Google Tag Manager, Yoast SEO, Mailchimp', options: [
+        { v: 'ga', label: 'Google Analytics' }, { v: 'gsc', label: 'Google Search Console' }, { v: 'gtm', label: 'Google Tag Manager' },
+        { v: 'ads', label: 'Google Ads conversion tracking' }, { v: 'linkedin', label: 'LinkedIn Insight tag' },
+        { v: 'mailchimp', label: 'Mailchimp' }, { v: 'crm', label: 'A CRM', desc: 'HubSpot, Pipedrive, Zoho…' },
+        { v: 'accounting', label: 'Accounting (QuickBooks, etc.)' },
+      ], other: true },
+      { id: 'compliance', type: 'check', tag: 'tech', label: 'Legal & accessibility', options: [
+        { v: 'aoda', label: 'Accessible (WCAG 2.1 AA / AODA-friendly)' },
+        { v: 'privacy', label: 'Updated privacy policy (PIPEDA)' },
+        { v: 'cookies', label: 'Cookie consent banner' },
+        { v: 'french', label: 'French language (Québec clients)' },
+      ] },
+      { id: 'security', type: 'check', tag: 'tech', label: 'Security & maintenance', options: [
+        { v: '2fa', label: 'Two-factor login for admins' },
+        { v: 'offsite', label: 'Off-site backups (Google Drive / Dropbox)' },
+        { v: 'updates', label: 'Automatic updates' },
+        { v: 'uptime', label: 'Uptime monitoring & alerts' },
+        { v: 'maint', label: 'Monthly maintenance check-in' },
+      ] },
+      { id: 'budget', type: 'radio', tag: 'tech', label: 'Budget for paid tools / services per year', help: 'e.g. premium plugins, stock photos, 3D hosting, hosting upgrade.', options: [
+        { v: '0', label: '$0 – free tools only' }, { v: '250', label: 'Up to $250' }, { v: '1000', label: 'Up to $1,000' }, { v: 'more', label: 'More if it pays off' }, NS,
+      ] },
+      { id: 'deadline', type: 'date', tag: 'tech', label: 'Target launch date (if any)' },
+    ]
+  },
+  {
+    id: 'wrap', title: 'Priorities & send', intro: 'Last step. Then download or send your answers.',
+    questions: [
+      { id: 'priorities', type: 'check', tag: 'design', max: 3, label: 'Top 3 priorities for the new site', options: [
+        { v: 'looks', label: 'Looks impressive' }, { v: 'leads', label: 'More leads / quotes' }, { v: 'speed', label: 'Very fast' },
+        { v: 'seo', label: 'Better Google rankings' }, { v: 'easy', label: 'Easy for us to update' }, { v: 'mobile', label: 'Great on phones' },
+        { v: 'cost', label: 'Low running cost' }, { v: 'showcase', label: 'Show off data & 3D work' }, { v: 'secure', label: 'Secure & low-maintenance' },
+      ] },
+      { id: 'must', type: 'textarea', tag: 'info', label: 'Must-haves' },
+      { id: 'never', type: 'textarea', tag: 'info', label: 'Deal-breakers / things you really don’t want' },
+      { id: 'anything', type: 'textarea', tag: 'info', label: 'Anything else?' },
+    ],
+    custom: 'send'
+  },
+];
+
+/* ---------- State ---------- */
+const KEY = 'dsci-planner-v1';
+let A = {};
+try { A = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch (e) { A = {}; }
+const $ = (s, r = document) => r.querySelector(s);
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+let saveT;
+function save() {
+  A._updated = new Date().toISOString();
+  try { localStorage.setItem(KEY, JSON.stringify(A)); } catch (e) {}
+  const b = $('#savedBadge'); b.classList.add('on'); clearTimeout(saveT); saveT = setTimeout(() => b.classList.remove('on'), 1200);
+  progress();
+}
+function toast(msg) { const t = $('#toast'); t.textContent = msg; t.classList.add('on'); setTimeout(() => t.classList.remove('on'), 2200); }
+
+/* ---------- Rendering ---------- */
+const TAGNAME = { tech: 'Technical', design: 'Design', info: 'Info' };
+function tagHtml(t) { return t ? `<span class="tag ${t}">${TAGNAME[t]}</span>` : ''; }
+
+function qHtml(q) {
+  const head = `<div class="ql" id="lbl-${q.id}">${esc(q.label)}${tagHtml(q.tag)}</div>`
+    + (q.current ? `<div class="current">${esc(q.current)}</div>` : '')
+    + (q.help ? `<p class="help">${esc(q.help)}</p>` : '');
+  let body = '';
+  const v = A[q.id];
+  switch (q.type) {
+    case 'text': case 'date':
+      body = `<input type="${q.type}" data-q="${q.id}" aria-labelledby="lbl-${q.id}" value="${esc(v || '')}">`; break;
+    case 'textarea':
+      body = `<textarea data-q="${q.id}" aria-labelledby="lbl-${q.id}">${esc(v || '')}</textarea>`; break;
+    case 'radio': case 'check': {
+      const isR = q.type === 'radio';
+      const sel = isR ? v : (Array.isArray(v) ? v : []);
+      body = `<div class="opts ${q.wide ? 'wide' : ''}" role="${isR ? 'radiogroup' : 'group'}" aria-labelledby="lbl-${q.id}">` + q.options.map(o => {
+        const checked = isR ? sel === o.v : sel.includes(o.v);
+        const sw = o.sw ? `<span class="swatches">${o.sw.map(c => `<i style="background:${c}"></i>`).join('')}</span>` : '';
+        const fp = o.font ? `<span class="fontprev ${q.body ? 'body' : ''}" style="font-family:'${o.font}', sans-serif">${esc(q.preview)}</span>` : '';
+        return `<label class="opt"><input type="${isR ? 'radio' : 'checkbox'}" name="${q.id}" value="${esc(o.v)}" data-q="${q.id}" ${checked ? 'checked' : ''}><span><b>${esc(o.label)}</b>${fp}${sw}${o.desc ? `<small>${esc(o.desc)}</small>` : ''}</span></label>`;
+      }).join('') + `</div>`
+        + (q.max ? `<p class="help" style="margin-top:8px">Pick up to ${q.max}.</p>` : '')
+        + (q.other ? `<input class="other" type="text" placeholder="Other / comments…" data-q="${q.id}__other" aria-label="${esc(q.label)} – other" value="${esc(A[q.id + '__other'] || '')}">` : '');
+      break;
+    }
+    case 'keep': {
+      const val = v || {};
+      const ch = q.choices || KEEP;
+      body = `<div class="keep-list">` + q.items.map((it, i) => {
+        const cur = val[it.n] || {};
+        return `<div class="keep-row"><div class="name"><b>${esc(it.n)}</b>${it.d ? `<small>${esc(it.d)}</small>` : ''}</div>
+          <div class="seg" role="radiogroup" aria-label="${esc(it.n)}">${ch.map(c => `<label><input type="radio" name="${q.id}-${i}" value="${esc(c)}" data-keep="${q.id}" data-item="${esc(it.n)}" ${cur.c === c ? 'checked' : ''}><span>${esc(c)}</span></label>`).join('')}</div>
+          <input type="text" placeholder="Note / new details…" data-keepnote="${q.id}" data-item="${esc(it.n)}" aria-label="${esc(it.n)} note" value="${esc(cur.n || '')}"></div>`;
+      }).join('') + `</div>`;
+      break;
+    }
+    case 'links': {
+      const rows = Array.isArray(v) && v.length ? v : [{ url: '', note: '' }];
+      body = `<div class="links" data-links="${q.id}">` + rows.map((r, i) => linkRow(q.id, i, r)).join('') + `</div>
+        <div class="actions"><button type="button" data-addlink="${q.id}">+ Add another link</button></div>`;
+      break;
+    }
+    case 'colors': {
+      const val = v || {};
+      body = `<div class="color-q">` + q.items.map((it, i) => {
+        const cur = val[it.n];
+        return `<label class="chip"><input type="color" data-color="${q.id}" data-item="${esc(it.n)}" value="${esc(cur || it.d)}"> ${esc(it.n)}${cur ? '' : ' <em style="font-style:normal">(not set)</em>'}</label>`;
+      }).join('') + ` <button type="button" data-clearcolors="${q.id}">Clear</button></div>`;
+      break;
+    }
+  }
+  return `<div class="q" id="q-${q.id}">${head}${body}</div>`;
+}
+function linkRow(id, i, r) {
+  return `<div class="link-row" data-row="${i}">
+    <input type="url" placeholder="https://…" data-link="${id}" data-field="url" aria-label="Link ${i + 1}" value="${esc(r.url)}">
+    <input type="text" placeholder="What do you like / notice about it?" data-link="${id}" data-field="note" aria-label="Link ${i + 1} note" value="${esc(r.note)}">
+    <button type="button" class="icon" data-dellink="${id}" aria-label="Remove link">✕</button></div>`;
+}
+
+function welcomeHtml() {
+  return `<div class="hero-note">
+    <b>How this works</b>
+    <ol>
+      <li>Each of you fills this in separately (on your own computer or phone). Your answers save automatically in your browser.</li>
+      <li>Skip anything you don’t know. “Not sure” is a perfectly good answer; we’ll recommend something.</li>
+      <li>At the end, press <b>Download answers</b> or <b>Email answers</b> so the answers can be combined into the design plan.</li>
+    </ol>
+  </div>
+  <p class="help">Tags show what each question is about: ${tagHtml('design')} how it looks, ${tagHtml('tech')} how it works, ${tagHtml('info')} facts & content to update.</p>
+  <div class="actions"><button type="button" id="importBtn">Continue from a downloaded file…</button><input type="file" id="importFile" accept=".json,application/json" hidden></div>`;
+}
+function sendHtml() {
+  return `<div class="q"><div class="ql">Send your answers</div>
+    <p class="help">Download the file (best, keeps everything) or email a readable summary. Both can be sent to Eric.</p>
+    <div class="row2"><div><label class="help" for="mailTo" style="display:block;margin:0 0 4px">Email to</label><input type="email" id="mailTo" value="${esc(A._mailTo || 'info@droneservicescanadainc.com')}"></div><div></div></div>
+    <div class="actions">
+      <button type="button" class="primary" id="dlBtn">Download answers (.json)</button>
+      <button type="button" id="mailBtn">Email answers</button>
+      <button type="button" id="copyBtn">Copy summary</button>
+      <button type="button" id="printBtn">Print / save as PDF</button>
+      <button type="button" id="resetBtn">Start over</button>
+    </div></div>`;
+}
+
+function render() {
+  $('#main').innerHTML = SECTIONS.map((s, i) => `<section id="s-${s.id}">
+      <h2><small>${String(i + 1).padStart(2, '0')}</small>${esc(s.title)}</h2>
+      ${s.intro ? `<p class="intro">${esc(s.intro)}</p>` : ''}
+      ${s.custom === 'welcome' ? welcomeHtml() : ''}
+      ${s.questions.map(qHtml).join('')}
+      ${s.custom === 'send' ? sendHtml() : ''}
+    </section>`).join('');
+  $('#toc').innerHTML = SECTIONS.map(s => `<li><a href="#s-${s.id}" data-sec="${s.id}">${esc(s.title)} <em></em></a></li>`).join('');
+  progress();
+}
+
+/* ---------- Progress ---------- */
+function answered(q) {
+  const v = A[q.id];
+  if (q.type === 'links') return Array.isArray(v) && v.some(r => r.url || r.note);
+  if (q.type === 'keep' || q.type === 'colors') return v && Object.keys(v).length > 0;
+  if (Array.isArray(v)) return v.length > 0 || !!A[q.id + '__other'];
+  return !!(v && String(v).trim()) || !!A[q.id + '__other'];
+}
+function progress() {
+  let tot = 0, done = 0;
+  SECTIONS.forEach(s => {
+    let st = 0, sd = 0;
+    s.questions.forEach(q => { st++; if (answered(q)) sd++; });
+    tot += st; done += sd;
+    const a = document.querySelector(`#toc a[data-sec="${s.id}"]`);
+    if (a) { a.querySelector('em').textContent = `${sd}/${st}`; a.classList.toggle('done', sd === st); }
+  });
+  $('#barFill').style.width = (tot ? done / tot * 100 : 0) + '%';
+  $('#progTxt').textContent = `${done} of ${tot} answered`;
+}
+
+/* ---------- Events ---------- */
+document.addEventListener('input', e => {
+  const t = e.target;
+  if (t.dataset.q) {
+    const id = t.dataset.q;
+    if (t.type === 'checkbox') {
+      const q = findQ(id);
+      let arr = [...document.querySelectorAll(`input[type=checkbox][data-q="${id}"]:checked`)].map(x => x.value);
+      if (q && q.max && arr.length > q.max) { t.checked = false; arr = arr.filter(x => x !== t.value); toast(`Pick up to ${q.max}`); }
+      A[id] = arr;
+    } else if (t.type === 'radio') { A[id] = t.value; }
+    else { A[id] = t.value; }
+    save();
+  } else if (t.dataset.keep) {
+    const o = A[t.dataset.keep] = A[t.dataset.keep] || {};
+    (o[t.dataset.item] = o[t.dataset.item] || {}).c = t.value; save();
+  } else if (t.dataset.keepnote) {
+    const o = A[t.dataset.keepnote] = A[t.dataset.keepnote] || {};
+    (o[t.dataset.item] = o[t.dataset.item] || {}).n = t.value; save();
+  } else if (t.dataset.link) {
+    readLinks(t.dataset.link); save();
+  } else if (t.dataset.color) {
+    const o = A[t.dataset.color] = A[t.dataset.color] || {};
+    o[t.dataset.item] = t.value; save();
+  } else if (t.id === 'mailTo') { A._mailTo = t.value; save(); }
+});
+document.addEventListener('click', e => {
+  const t = e.target.closest('button');
+  if (!t) return;
+  if (t.dataset.addlink) { const box = document.querySelector(`[data-links="${t.dataset.addlink}"]`); const i = box.children.length; box.insertAdjacentHTML('beforeend', linkRow(t.dataset.addlink, i, { url: '', note: '' })); box.lastElementChild.querySelector('input').focus(); }
+  else if (t.dataset.dellink) { const row = t.closest('.link-row'); const box = row.parentElement; if (box.children.length > 1) row.remove(); else row.querySelectorAll('input').forEach(i => i.value = ''); readLinks(t.dataset.dellink); save(); }
+  else if (t.dataset.clearcolors) { delete A[t.dataset.clearcolors]; save(); rerenderQ(t.dataset.clearcolors); }
+  else if (t.id === 'dlBtn') download();
+  else if (t.id === 'mailBtn') email();
+  else if (t.id === 'copyBtn') copySummary();
+  else if (t.id === 'printBtn') window.print();
+  else if (t.id === 'resetBtn') { if (confirm('Clear all your answers in this browser?')) { A = {}; try { localStorage.removeItem(KEY); } catch (e) {} render(); } }
+  else if (t.id === 'importBtn') $('#importFile').click();
+  else if (t.id === 'themeBtn') toggleTheme();
+});
+document.addEventListener('change', e => {
+  if (e.target.id !== 'importFile' || !e.target.files[0]) return;
+  const r = new FileReader();
+  r.onload = () => { try { const d = JSON.parse(r.result); A = d.answers || d; save(); render(); toast('Answers loaded'); } catch (err) { toast('That file could not be read'); } };
+  r.readAsText(e.target.files[0]);
+});
+function readLinks(id) {
+  A[id] = [...document.querySelectorAll(`[data-links="${id}"] .link-row`)].map(r => ({ url: r.querySelector('[data-field=url]').value.trim(), note: r.querySelector('[data-field=note]').value.trim() })).filter(r => r.url || r.note);
+}
+function findQ(id) { for (const s of SECTIONS) for (const q of s.questions) if (q.id === id) return q; }
+function rerenderQ(id) { const el = $('#q-' + id); if (el) el.outerHTML = qHtml(findQ(id)); }
+
+/* ---------- Export ---------- */
+function optLabel(q, v) { const o = (q.options || []).find(o => o.v === v); return o ? o.label : v; }
+function summary() {
+  const L = [`# DSCI website planning answers`, `From: ${A.who || '(no name)'}${A.role ? ' – ' + A.role : ''}`, `Updated: ${A._updated ? new Date(A._updated).toLocaleString() : ''}`, ''];
+  SECTIONS.forEach(s => {
+    const lines = [];
+    s.questions.forEach(q => {
+      if (!answered(q) || q.id === 'who' || q.id === 'role') return;
+      const v = A[q.id], other = A[q.id + '__other'];
+      let out = '';
+      if (q.type === 'radio') out = v ? optLabel(q, v) : '';
+      else if (q.type === 'check') out = (v || []).map(x => optLabel(q, x)).join('; ');
+      else if (q.type === 'keep') out = '\n' + Object.entries(v).map(([k, o]) => `  - ${k}: ${o.c || '–'}${o.n ? ' (' + o.n + ')' : ''}`).join('\n');
+      else if (q.type === 'links') out = '\n' + v.map(r => `  - ${r.url}${r.note ? ' – ' + r.note : ''}`).join('\n');
+      else if (q.type === 'colors') out = Object.entries(v).map(([k, c]) => `${k} ${c}`).join('; ');
+      else out = String(v).includes('\n') ? '\n  ' + String(v).replace(/\n/g, '\n  ') : v;
+      if (other) out += (out ? ' | Other: ' : 'Other: ') + other;
+      lines.push(`- **${q.label}**: ${out}`);
+    });
+    if (lines.length) L.push(`## ${s.title}`, ...lines, '');
+  });
+  return L.join('\n');
+}
+function fileName(ext) { const n = (A.who || 'answers').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, ''); return `dsci-website-plan-${n}-${new Date().toISOString().slice(0, 10)}.${ext}`; }
+function download() {
+  const blob = new Blob([JSON.stringify({ version: 1, answers: A, summary: summary() }, null, 2)], { type: 'application/json' });
+  const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = fileName('json'); document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(a.href), 2000); toast('Downloaded');
+}
+function copySummary() {
+  const s = summary();
+  (navigator.clipboard ? navigator.clipboard.writeText(s) : Promise.reject()).then(() => toast('Summary copied'), () => {
+    const ta = document.createElement('textarea'); ta.value = s; document.body.appendChild(ta); ta.select(); try { document.execCommand('copy'); toast('Summary copied'); } catch (e) { toast('Copy failed'); } ta.remove();
+  });
+}
+function email() {
+  const to = ($('#mailTo')?.value || '').trim();
+  const subj = `Website planning answers – ${A.who || ''}`.trim();
+  let body = summary();
+  if (body.length > 1800) { copySummary(); body = 'My answers are too long for an email link, so they have been copied. Paste them here (Ctrl+V), or attach the downloaded .json file.\n\n'; }
+  location.href = `mailto:${encodeURIComponent(to)}?subject=${encodeURIComponent(subj)}&body=${encodeURIComponent(body)}`;
+}
+
+/* ---------- Theme & TOC highlight ---------- */
+function applyTheme(t) { if (t) document.documentElement.dataset.theme = t; else delete document.documentElement.dataset.theme; }
+function toggleTheme() {
+  const dark = document.documentElement.dataset.theme ? document.documentElement.dataset.theme === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches;
+  const t = dark ? 'light' : 'dark'; applyTheme(t); try { localStorage.setItem(KEY + '-theme', t); } catch (e) {}
+}
+try { applyTheme(localStorage.getItem(KEY + '-theme')); } catch (e) {}
+
+const io = new IntersectionObserver(es => {
+  es.forEach(en => { if (en.isIntersecting) { document.querySelectorAll('#toc a').forEach(a => a.classList.toggle('active', a.dataset.sec === en.target.id.slice(2))); } });
+}, { rootMargin: '-40% 0px -55% 0px' });
+const _render = render;
+render = function () { _render(); io.disconnect(); document.querySelectorAll('main section').forEach(s => io.observe(s)); };
+render();
+</script>
+</body>
+</html>
